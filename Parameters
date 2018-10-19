@@ -1,0 +1,23 @@
+STRUCTURES
+  Players
+    Computer
+  Deck - Stack
+  PlayerDeck - Queue
+  
+ METHODS
+  CreatePlayers
+  "Shuffle" Deck
+  "Deal" Cards
+  Play
+      Compare
+      "War"
+      Re-Create Player Deck
+  
+  VARIABLES
+    Players
+        name
+    Deck
+        int suit
+        int CardValue (from 2 to 14 with the ace being 14)
+        String SuitName
+        String CardValue
