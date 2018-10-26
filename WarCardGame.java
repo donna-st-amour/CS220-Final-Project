@@ -59,22 +59,23 @@ public class WarCardGame{
          String[] playerDeck = new String[25];
          String[] computerDeck = new String[25];
          Random randomInt = new Random (52);
-         int handCount = 0;
+         int playerHandCount = 0;
+         int compHandCount = 0;
          for (int y = 0; y < 52; y ++){
             int z = randomInt.nextInt(51);
             //What does this do?
             
             while (deck[z]!= "0"){
                if (y % 2 == 0){
-                  playerDeck[handCount] = deck[z];
+                  playerDeck[playerHandCount] = deck[z];
                   deck[z] = "0";
-                  handCount ++;
+                  playerHandCount ++;
                }// end if loop
                
                else if (y % 2 != 0){
-                  computerDeck[handCount] = deck[z];
+                  computerDeck[compHandCount] = deck[z];
                   deck[z] = "0";
-                  handCount ++;
+                  compHandCount ++;
                }//end else if loop    
             }//end while loop      
          }//end for loop
