@@ -27,6 +27,7 @@ public class WarCardGame1{
          return name;
       }//end getPlayerName method
       
+      //This method now works!
       public static String[] initializeDeck(){  //method to initialize the deck
          String[] deck = new String[52];
          for (int i=2; i<15; i++){
@@ -56,6 +57,7 @@ public class WarCardGame1{
          return deck;
       }//end initializeDeck method
       
+      //This method now works as well! :D
       public static String[] getPlayerHand(String[] deck){
          String[] playerDeck = new String[26];
          Random randomInt = new Random (52);//creates an instance of the Random class
