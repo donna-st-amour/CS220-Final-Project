@@ -14,7 +14,7 @@ public class WarCardGame{
       String[] computerHand= new String[b];
       
       PlayerName = getPlayerName();
-      initializeDeck();
+      deck = initializeDeck();
       playerHand = getPlayerHand(deck);
       
      }//end main    
@@ -27,7 +27,7 @@ public class WarCardGame{
          return name;
       }//end getPlayerName method
       
-      public static String[]initializeDeck(){  //method to initialize the deck
+      public static String[] initializeDeck(){  //method to initialize the deck
          String[] deck = new String[52];
          for (int i=2; i<15; i++){
             deck[i-2] = i + "H";
@@ -56,15 +56,14 @@ public class WarCardGame{
       }//end initializeDeck method
       
       public static String[] getPlayerHand(String[] deck){
-         String[] playerDeck = new String[25];
-         String[] computerDeck = new String[25];
+         String[] playerDeck = new String[26];
+         String[] computerDeck = new String[26];
          Random randomInt = new Random (52);
          int playerHandCount = 0;
          int compHandCount = 0;
+         int z;
          for (int y = 0; y < 52; y ++){
-            int z = randomInt.nextInt(51);
-            //What does this do?
-            
+            z = randomInt.nextInt(51);
             while (deck[z]!= "0"){
                if (y % 2 == 0){
                   playerDeck[playerHandCount] = deck[z];
