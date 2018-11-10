@@ -98,7 +98,7 @@ import java.util.Random;
 	                           
 	         
 	         
-	            Random randomInt = new Random (25);
+	           /* Random randomInt = new Random (25);
 	            int z = randomInt.nextInt(25);//gets the next random int between 0 and 25
 	            for(int y = 0; y < 26; y++){
 	               while(newDeck[z] == "0"){
@@ -112,7 +112,7 @@ import java.util.Random;
 	            for (int x = 0; x < 26; x ++){
 	            System.out.println (computerDeck[x]);
 	            }//end test for loop
-	            System.out.println();
+	            System.out.println();*/
 	            return computerDeck;
 	      }//end getComputerHand method
 	 }//end class 
