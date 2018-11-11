@@ -1,4 +1,5 @@
 import java.util.Vector;
+import java.util.Vector.*;
 
 public class VectorQueue<String> implements QueueInterface<String>{
    private Vector<String> queue;
@@ -23,10 +24,9 @@ public class VectorQueue<String> implements QueueInterface<String>{
       return front;
    }//end getFront method
    
-   public String get(int index){
+   public String get(int index, int count){
       String item = null;
-      int size = Vector.size();
-      if(index < size){
+      if(index < count){
          item = queue.get(index);
       }//end if
       return item;
@@ -47,5 +47,6 @@ public class VectorQueue<String> implements QueueInterface<String>{
    public void clear(){
       queue.clear();
    }//end clear method
+
    
 }//end interface
