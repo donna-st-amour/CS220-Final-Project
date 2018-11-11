@@ -62,7 +62,7 @@ public class WarCardGame2 extends VectorQueue<String>{
          playerDeck[index] = deckArrayList.get(index);
          deckArrayList.remove(index);
       }//end for loop
-      VectorQueue playerDeckVQ = new VectorQueue(26);
+      VectorQueue playerDeckVQ = new VectorQueue(52);
       for(int i = 0; i < playerDeck.length; i++){
          playerDeckVQ.enqueue(playerDeck[i]);
       }//end for
@@ -76,7 +76,7 @@ public class WarCardGame2 extends VectorQueue<String>{
          computerDeck[index] = deckArrayList.get(index);
          deckArrayList.remove(index);
       }//end for loop
-      VectorQueue computerDeckVQ = new VectorQueue(26);
+      VectorQueue computerDeckVQ = new VectorQueue(52);
       for(int i = 0; i < computerDeck.length; i++){
          computerDeckVQ.enqueue(computerDeck[i]);
       }//end for
@@ -96,8 +96,8 @@ public class WarCardGame2 extends VectorQueue<String>{
       int column = 0;
 
       while(!playerHand.isEmpty() && !computerHand.isEmpty()){   
-         System.out.println("Press Enter to flip a card.");
-         String junk = keyboard.nextLine();
+         //System.out.println("Press Enter to flip a card.");
+         //String junk = keyboard.nextLine();
          String playerCard = (String) playerHand.dequeue();
          String playerSubstring = playerCard.substring(1);
          int playerCardValue = Integer.parseInt(playerSubstring);
@@ -109,12 +109,15 @@ public class WarCardGame2 extends VectorQueue<String>{
          if(playerCardValue > computerCardValue){
             playerHand.enqueue(playerCard);
             playerHand.enqueue(computerCard);
+            System.out.println("You win this round!");
          }//end if
          else if(playerCardValue < computerCardValue){
             computerHand.enqueue(playerCard);
             computerHand.enqueue(computerCard);
+            System.out.println("The computer wins this round.");
          }//end else if
-         else
+         else{
+            System.out.println("Go to WAR!!!");
             for(int i = 0; i < 3; i++){
                warCollection[row][column] = playerHand.dequeue();
                column++;
@@ -128,7 +131,7 @@ public class WarCardGame2 extends VectorQueue<String>{
                else
                   column++;
             }//end for
-         
+         }//end else
       }//end while   
    
    }//end gameplay method
