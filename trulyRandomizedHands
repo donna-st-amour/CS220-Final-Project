@@ -3,7 +3,7 @@ import java.util.Random;
 import java.util.Collections;
 import java.util.ArrayList;
 
-public class WarCardGame2 {
+public class WarCardGame2 extends VectorQueue<String>{
 
 	public static void main(String[] args) {
 			
@@ -21,9 +21,8 @@ public class WarCardGame2 {
                for(int i = 0; i < 52; i++){           
                   deckArrayList.add(deck[i]);
                }//end for loop
-		      playerHand = getPlayerHand(deckArrayList);
-		      computerHand = getComputerHand(deckArrayList);
-		      
+            playerHand = getPlayerHand(deckArrayList);
+		      computerHand = getComputerHand(deckArrayList);      
 		     }//end main    
 		      
 
@@ -79,21 +78,28 @@ public class WarCardGame2 {
             }//end getPlayerHand method
 		              
             public static String[] getComputerHand(ArrayList<String> deckArrayList){
+               int compDeckCount = 0;	
                String[] computerDeck = new String[26];
                Collections.shuffle(deckArrayList); 
                for(int index = 25; index >= 0; index--){
                   computerDeck[index] = deckArrayList.get(index);
                   deckArrayList.remove(index);
                }//end for loop
-                 //Printout for testing purposes
-		            for (int x = 0; x < 26; x ++){
-		            System.out.println (computerDeck[x]);
+               VectorQueue compDeck = new VectorQueue(26);
+               for(int i = 0; i < computerDeck.length; i++){
+                  compDeck.enqueue(computerDeck[i]);
+                  compDeckCount++;
+               }//end for
+               //Printout for testing purposes
+		            for (int x = 0; x < compDeckCount; x ++){
+		            System.out.println (compDeck.get(x, compDeckCount));
 		            }//end test for loop
 		            System.out.println("---------------------------------------------------------------------------------------------");
 		            System.out.println();
 		            return computerDeck;
             }//end getComputerHand method
             
+////////////////////////////PLAYING PORTION//////////////////////////////////////////////////////
             
 
                
