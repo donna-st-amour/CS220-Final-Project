@@ -5,86 +5,141 @@ import java.util.ArrayList;
 
 public class WarCardGame2 extends VectorQueue<String>{
 
-	public static void main(String[] args) {
-			
-		      String PlayerName;
-		      char Suit;
-		      int CardValue;
-		      String[] deck = new String[52];
-		      int a = 25; //number of cards in player's deck
-		      int b = 25; //number of cards in computer's deck
-            VectorQueue playerHand = new VectorQueue(26);
-            VectorQueue computerHand= new VectorQueue(26);
-   	      PlayerName = getPlayerName();
-		      deck = initializeDeck();
-            ArrayList<String> deckArrayList = new ArrayList<String>();
-               for(int i = 0; i < 52; i++){           
-                  deckArrayList.add(deck[i]);
-               }//end for loop
-            playerHand = getPlayerHand(deckArrayList);
-		      computerHand = getComputerHand(deckArrayList);      
-		     }//end main    
+   public static void main(String[] args) {
+   		
+      String PlayerName;
+      char Suit;
+      int CardValue;
+      String[] deck = new String[52];
+      int a = 25; //number of cards in player's deck
+      int b = 25; //number of cards in computer's deck
+      VectorQueue playerHand = new VectorQueue(26);
+      VectorQueue computerHand= new VectorQueue(26);
+      PlayerName = getPlayerName();
+      deck = initializeDeck();
+      ArrayList<String> deckArrayList = new ArrayList<String>();
+      for(int i = 0; i < 52; i++){           
+         deckArrayList.add(deck[i]);
+      }//end for loop
+      playerHand = getPlayerHand(deckArrayList);
+      computerHand = getComputerHand(deckArrayList);
+      gameplay(playerHand, computerHand);      
+   }//end main    
 		      
 
-		      public static String getPlayerName(){
-		         Scanner keyboard = new Scanner(System.in);
-		         System.out.println ("Please enter your name.");
-		         String name = keyboard.nextLine();
-		         return name;
-		      }//end getPlayerName method
+   public static String getPlayerName(){
+      Scanner keyboard = new Scanner(System.in);
+      System.out.println ("Please enter your name.");
+      String name = keyboard.nextLine();
+      return name;
+   }//end getPlayerName method
 		      
-		      public static String[] initializeDeck(){  //method to initialize the deck
-		         String[] deck = new String[52];
-		         for (int i=2; i<15; i++){
-		            deck[i-2] = i + "H";
-		         }//end hearts loop
-		         
-		         for (int j=2; j<15; j++){
-		            deck[j+11] = j + "S";
-		         }//end spades loop
-		         
-		         for (int k = 2; k < 15; k++){
-		            deck[k + 24] = k + "D";
-		         }//end diamonds loop
-		         
-		         for (int m = 2; m < 15; m++){
-		            deck[m + 37] = m + "C";
-		         }//end clubs loop
-		         return deck;
-		      }//end initializeDeck method
+   public static String[] initializeDeck(){  //method to initialize the deck
+      String[] deck = new String[52];
+      for (int i=2; i<15; i++){
+         deck[i-2] = "H" + i;
+      }//end hearts loop
+   	         
+      for (int j=2; j<15; j++){
+         deck[j+11] = "S" + j;
+      }//end spades loop
+   	         
+      for (int k = 2; k < 15; k++){
+         deck[k + 24] = "D" + k;
+      }//end diamonds loop
+   	         
+      for (int m = 2; m < 15; m++){
+         deck[m + 37] = "C" + m;
+      }//end clubs loop
+      return deck;
+   }//end initializeDeck method
 		      
 	            
-            public static VectorQueue getPlayerHand(ArrayList<String> deckArrayList){
-               String[] playerDeck = new String[26];
-               Collections.shuffle(deckArrayList); 
-               for(int index = 0; index < 26; index++){
-                  playerDeck[index] = deckArrayList.get(index);
-                  deckArrayList.remove(index);
-               }//end for loop
-               VectorQueue playerDeckVQ = new VectorQueue(26);
-               for(int i = 0; i < playerDeck.length; i++){
-                  playerDeckVQ.enqueue(playerDeck[i]);
-               }//end for
-		         return playerDeckVQ;
-            }//end getPlayerHand method
+   public static VectorQueue getPlayerHand(ArrayList<String> deckArrayList){
+      String[] playerDeck = new String[26];
+      Collections.shuffle(deckArrayList); 
+      for(int index = 0; index < 26; index++){
+         playerDeck[index] = deckArrayList.get(index);
+         deckArrayList.remove(index);
+      }//end for loop
+      VectorQueue playerDeckVQ = new VectorQueue(26);
+      for(int i = 0; i < playerDeck.length; i++){
+         playerDeckVQ.enqueue(playerDeck[i]);
+      }//end for
+      return playerDeckVQ;
+   }//end getPlayerHand method
 		              
-            public static VectorQueue getComputerHand(ArrayList<String> deckArrayList){
-               String[] computerDeck = new String[26];
-               Collections.shuffle(deckArrayList); 
-               for(int index = 25; index >= 0; index--){
-                  computerDeck[index] = deckArrayList.get(index);
-                  deckArrayList.remove(index);
-               }//end for loop
-               VectorQueue computerDeckVQ = new VectorQueue(26);
-               for(int i = 0; i < computerDeck.length; i++){
-                  computerDeckVQ.enqueue(computerDeck[i]);
-               }//end for
-		         return computerDeckVQ;
-            }//end getComputerHand method
+   public static VectorQueue getComputerHand(ArrayList<String> deckArrayList){
+      String[] computerDeck = new String[26];
+      Collections.shuffle(deckArrayList); 
+      for(int index = 25; index >= 0; index--){
+         computerDeck[index] = deckArrayList.get(index);
+         deckArrayList.remove(index);
+      }//end for loop
+      VectorQueue computerDeckVQ = new VectorQueue(26);
+      for(int i = 0; i < computerDeck.length; i++){
+         computerDeckVQ.enqueue(computerDeck[i]);
+      }//end for
+      return computerDeckVQ;
+   }//end getComputerHand method
             
 ////////////////////////////PLAYING PORTION//////////////////////////////////////////////////////
-            
+   public static void gameplay(VectorQueue<String> playerHand, VectorQueue<String> computerHand){
+      String[] warOne = new String[6];
+      String[] warTwo = new String[6];
+      String[] warThree = new String[6];
+      String[] warFour = new String[6];
+      String[] warFive = new String[6];
+      String[][] warCollection = new String[5][6];
+      Scanner keyboard = new Scanner(System.in);
+      int row = 0;
+      int column = 0;
 
+      while(!playerHand.isEmpty() && !computerHand.isEmpty()){   
+         System.out.println("Press Enter to flip a card.");
+         String junk = keyboard.nextLine();
+         String playerCard = (String) playerHand.dequeue();
+         String playerSubstring = playerCard.substring(1);
+         int playerCardValue = Integer.parseInt(playerSubstring);
+         System.out.println("You have played the " + playerCard);
+         String computerCard = (String) computerHand.dequeue();
+         String computerSubstring = computerCard.substring(1);
+         int computerCardValue = Integer.parseInt(computerSubstring);
+         System.out.println("The computer played the " + computerCard);
+         if(playerCardValue > computerCardValue){
+            playerHand.enqueue(playerCard);
+            playerHand.enqueue(computerCard);
+         }//end if
+         else if(playerCardValue < computerCardValue){
+            computerHand.enqueue(playerCard);
+            computerHand.enqueue(computerCard);
+         }//end else if
+         else
+            for(int i = 0; i < 3; i++){
+               warCollection[row][column] = playerHand.dequeue();
+               column++;
+            }//end for
+            for(int j = 0; j < 3; j++){
+               warCollection[row][column] = computerHand.dequeue();               
+               if(column == 5){
+                  row++;
+                  column = 0;
+               }//end if
+               else
+                  column++;
+            }//end for
+         
+      }//end while   
+   
+   }//end gameplay method
+      
+      
+      
+      
+      
+   //public String getValue(String cardName){
+     // switch(cardName)
+       //  case 
                
 		      
 		      
