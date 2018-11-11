@@ -13,8 +13,8 @@ public class WarCardGame2 extends VectorQueue<String>{
 		      String[] deck = new String[52];
 		      int a = 25; //number of cards in player's deck
 		      int b = 25; //number of cards in computer's deck
-		      String[] playerHand = new String[a];
-		      String[] computerHand= new String[b];
+            VectorQueue playerHand = new VectorQueue(26);
+            VectorQueue computerHand= new VectorQueue(26);
    	      PlayerName = getPlayerName();
 		      deck = initializeDeck();
             ArrayList<String> deckArrayList = new ArrayList<String>();
@@ -50,53 +50,36 @@ public class WarCardGame2 extends VectorQueue<String>{
 		         for (int m = 2; m < 15; m++){
 		            deck[m + 37] = m + "C";
 		         }//end clubs loop
-			         
-		         /* The next lines are for testing purposes */
-		         for (int x = 0; x < 52; x ++){
-		           System.out.println (deck[x]);
-		         }//end test for loop
-		         System.out.println("---------------------------------------------------------------------------------------------");
-		         System.out.println();
 		         return deck;
 		      }//end initializeDeck method
 		      
 	            
-            public static String[] getPlayerHand(ArrayList<String> deckArrayList){
+            public static VectorQueue getPlayerHand(ArrayList<String> deckArrayList){
                String[] playerDeck = new String[26];
                Collections.shuffle(deckArrayList); 
                for(int index = 0; index < 26; index++){
                   playerDeck[index] = deckArrayList.get(index);
                   deckArrayList.remove(index);
                }//end for loop
-                 //Printout for testing purposes
-		            for (int x = 0; x < 26; x ++){
-		            System.out.println (playerDeck[x]);
-		            }//end test for loop
-		            System.out.println("---------------------------------------------------------------------------------------------");
-		            System.out.println();
-		            return playerDeck;
+               VectorQueue playerDeckVQ = new VectorQueue(26);
+               for(int i = 0; i < playerDeck.length; i++){
+                  playerDeckVQ.enqueue(playerDeck[i]);
+               }//end for
+		         return playerDeckVQ;
             }//end getPlayerHand method
 		              
-            public static String[] getComputerHand(ArrayList<String> deckArrayList){
-               int compDeckCount = 0;	
+            public static VectorQueue getComputerHand(ArrayList<String> deckArrayList){
                String[] computerDeck = new String[26];
                Collections.shuffle(deckArrayList); 
                for(int index = 25; index >= 0; index--){
                   computerDeck[index] = deckArrayList.get(index);
                   deckArrayList.remove(index);
                }//end for loop
-               VectorQueue compDeck = new VectorQueue(26);
+               VectorQueue computerDeckVQ = new VectorQueue(26);
                for(int i = 0; i < computerDeck.length; i++){
-                  compDeck.enqueue(computerDeck[i]);
-                  compDeckCount++;
+                  computerDeckVQ.enqueue(computerDeck[i]);
                }//end for
-               //Printout for testing purposes
-		            for (int x = 0; x < compDeckCount; x ++){
-		            System.out.println (compDeck.get(x, compDeckCount));
-		            }//end test for loop
-		            System.out.println("---------------------------------------------------------------------------------------------");
-		            System.out.println();
-		            return computerDeck;
+		         return computerDeckVQ;
             }//end getComputerHand method
             
 ////////////////////////////PLAYING PORTION//////////////////////////////////////////////////////
