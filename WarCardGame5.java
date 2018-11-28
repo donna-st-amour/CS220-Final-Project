@@ -89,7 +89,7 @@ public class WarCardGame5 extends VectorQueue<String>{
 ////////////////////////////PLAYING PORTION//////////////////////////////////////////////////////
    public static void gameplay(VectorQueue<String> playerHand, VectorQueue<String> computerHand, String[][] warCollection, int warCount) throws InterruptedException{
 
-      Scanner keyboard = new Scanner(System.in);
+      //Scanner keyboard = new Scanner(System.in);
 
       while(!playerHand.isEmpty() && !computerHand.isEmpty()){   
          //System.out.println("Press Enter to flip a card.");
@@ -208,11 +208,11 @@ public class WarCardGame5 extends VectorQueue<String>{
             playerCard = (String) playerHand.dequeue();
             playerSubstring = playerCard.substring(1);
             playerCardValue = Integer.parseInt(playerSubstring);
-            System.out.println("You have played the " + playerCard);
+            System.out.println("You have played the " + getValue(playerCard, playerCardValue));
             computerCard = (String) computerHand.dequeue();
             computerSubstring = computerCard.substring(1);
             computerCardValue = Integer.parseInt(computerSubstring);
-            System.out.println("The computer played the " + computerCard);
+            System.out.println("The computer played the " + getValue(computerCard, computerCardValue));
             //Compare the face-up war cards and enqueue won cards
             if(playerCardValue > computerCardValue){
                playerHand.enqueue(playerCard);
