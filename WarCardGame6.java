@@ -7,7 +7,7 @@ import java.util.*;
 
 public class WarCardGame6 extends VectorQueue<String>{
     public static String PlayerName;
-    public static String ComputerName = "Computer";
+    public static String ComputerName = "Cameron";
    public static void main(String[] args) throws InterruptedException {
    		
 
@@ -96,38 +96,46 @@ public class WarCardGame6 extends VectorQueue<String>{
       while(!playerHand.isEmpty() && !computerHand.isEmpty()){   
          //System.out.println("Press Enter to flip a card.");
          //String junk = keyboard.nextLine();
+
     	  String playerCard = (String) playerHand.dequeue();
           String playerSubstring = playerCard.substring(1);
           int playerCardValue = Integer.parseInt(playerSubstring);
-          System.out.println("You have played the " + getValue(playerCard, playerCardValue));
+          System.out.println(PlayerName + ", you have played the " + getValue(playerCard, playerCardValue));
           String computerCard = (String) computerHand.dequeue();
           String computerSubstring = computerCard.substring(1);
           int computerCardValue = Integer.parseInt(computerSubstring);
-          System.out.println("The computer played the " + getValue(computerCard, computerCardValue));
+          System.out.println(ComputerName + " played the " + getValue(computerCard, computerCardValue));
+          System.out.println("Player hand: " + playerHand.size());
+          System.out.println("Computer hand: " + computerHand.size());
           if(playerCardValue > computerCardValue){
              playerHand.enqueue(playerCard);
              playerHand.enqueue(computerCard);
-             System.out.println("You win this round!");
+             System.out.println(PlayerName + ", you win this round!");
              System.out.println();
              //Thread.sleep(1500);
           }//end if
           else if(playerCardValue < computerCardValue){
              computerHand.enqueue(playerCard);
              computerHand.enqueue(computerCard);
-             System.out.println("The computer wins this round.");
+             System.out.println(ComputerName + " wins this round.");
              System.out.println();
              //Thread.sleep(1500);
           }//end else if
           
          else{
-         goToWar(playerHand, computerHand, playerCard, computerCard, warCollection, warCount);
+        	 goToWar(playerHand, computerHand, playerCard, computerCard, warCollection, warCount);
+        	 if(playerHand.isEmpty()||computerHand.isEmpty()){
+        		 return;
+        	 }//end if
          }//end else
       }//end while  
       if(playerHand.isEmpty()){
-    	  System.out.println("Sorry, you lose. The computer wins the game.");
+    	  gameWinning(ComputerName);
+    	  return;
       }//end if
       else{
-    	  System.out.println("You WIN!!!");
+    	  gameWinning(PlayerName);
+    	  return;
       }//end else
     }//end gameplay method
       
@@ -196,12 +204,12 @@ public class WarCardGame6 extends VectorQueue<String>{
             int playerCardValue;
             String computerSubstring;
             int computerCardValue;
-            boolean gameOver = false;
+            String tempPlayerCard = playerCard;
+            String tempComputerCard = computerCard;
             
             System.out.println(); 
             System.out.println("Go to WAR!!!");
-            while(!gameOver){
-	            //In case of multiple wars
+                //In case of multiple wars
 	            if(warCollection[warCount][column] != null){
 	               warCount++;
 	            }//end if
@@ -212,7 +220,8 @@ public class WarCardGame6 extends VectorQueue<String>{
 	            		   warCollection[warCount][i] = playerHand.dequeue();
 	            	    }//end if
 	            	    else{
-	            	    	gameOver = gameWinning(WarCardGame5.ComputerName, gameOver);
+	            	    	gameWinning(WarCardGame6.ComputerName);
+	            	    	return;
 	            	    }//end else
 	               }//end for
 	               for(int j = 3; j < 6; j++){
@@ -220,7 +229,8 @@ public class WarCardGame6 extends VectorQueue<String>{
 	            		   warCollection[warCount][j] = computerHand.dequeue();
 	            	   }//end if
 	            	   else{
-	            		   gameOver = gameWinning(WarCardGame5.PlayerName, gameOver);
+	            		   gameWinning(WarCardGame6.PlayerName);
+	            		   return;
 	            	   }//end else
 	               }//end for
 	            }//end else
@@ -229,16 +239,18 @@ public class WarCardGame6 extends VectorQueue<String>{
 	            	playerCard = (String) playerHand.dequeue();
 	            	playerSubstring = playerCard.substring(1);
 	            	playerCardValue = Integer.parseInt(playerSubstring);
-	            	System.out.println("You have played the " + getValue(playerCard, playerCardValue));
+	            	System.out.println(PlayerName + ", you have played the " + getValue(playerCard, playerCardValue));
 	            	computerCard = (String) computerHand.dequeue();
 	            	computerSubstring = computerCard.substring(1);
 	            	computerCardValue = Integer.parseInt(computerSubstring);
-	            	System.out.println("The computer played the " + getValue(computerCard, computerCardValue));
+	            	System.out.println(ComputerName + " played the " + getValue(computerCard, computerCardValue));
 	            	//Compare the face-up war cards and enqueue won cards
 	            	if(playerCardValue > computerCardValue){
 	            		playerHand.enqueue(playerCard);
 	            		playerHand.enqueue(computerCard);
-	            		System.out.println("You win the war!");
+	            		playerHand.enqueue(tempPlayerCard);
+	            		playerHand.enqueue(tempComputerCard);
+	            		System.out.println(PlayerName + ", you win the war!");
 	            		System.out.println();
 	            		for(int i = 0;i < warCount + 1;i++){
 	            			for(int j = 0;j < 6;j++){
@@ -250,7 +262,9 @@ public class WarCardGame6 extends VectorQueue<String>{
 	            	else if(playerCardValue < computerCardValue){
 	            		computerHand.enqueue(playerCard);
 	            		computerHand.enqueue(computerCard);
-	            		System.out.println("The computer wins the war.");
+	            		computerHand.enqueue(tempPlayerCard);
+	            		computerHand.enqueue(tempComputerCard);
+	            		System.out.println(ComputerName + " wins the war.");
 	            		System.out.println();
 	            		for(int i = 0;i < warCount + 1;i++){
 	            			for(int j = 0;j < 6;j++){
@@ -264,17 +278,19 @@ public class WarCardGame6 extends VectorQueue<String>{
 	            		goToWar(playerHand, computerHand, playerCard, computerCard, warCollection, warCount);           
 	            	}//end else
 	            }//end if
-	            else if(playerHand.isEmpty(){
-	            	gameWinning(WarCardGame5.computerName, gameOver);
+	            else if(playerHand.isEmpty()){
+	            	gameWinning(WarCardGame6.ComputerName);
+	            	return;
 	            }//end else if
-	            }//end while
+	            else{
+	            	gameWinning(WarCardGame6.PlayerName);
+	            	return;
+	            }//end else
             }//end goToWar method 
 
-            public static boolean gameWinning(String name, boolean gameOver){
+            public static void gameWinning(String name){
             	System.out.println(name + " you have won the game!");
-            	gameOver = true;
-            	return gameOver;        	 
-            }//end gameWinning method
+             }//end gameWinning method
 
 
 
