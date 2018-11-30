@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 import java.util.Random;
 import java.util.Collection;
@@ -93,7 +92,7 @@ public class WarCardGame6 extends VectorQueue<String>{
 
       //Scanner keyboard = new Scanner(System.in);
 
-      while(!playerHand.isEmpty() && !computerHand.isEmpty()){   
+      while((playerHand.size() != 0) && (computerHand.size() != 0)){   
          //System.out.println("Press Enter to flip a card.");
          //String junk = keyboard.nextLine();
 
@@ -124,7 +123,7 @@ public class WarCardGame6 extends VectorQueue<String>{
           
          else{
         	 goToWar(playerHand, computerHand, playerCard, computerCard, warCollection, warCount);
-        	 if(playerHand.isEmpty()||computerHand.isEmpty()){
+        	 if((playerHand.size() == 0) || (computerHand.size() == 0)){
         		 return;
         	 }//end if
          }//end else
@@ -132,7 +131,7 @@ public class WarCardGame6 extends VectorQueue<String>{
           System.out.println("Computer hand: " + computerHand.size());
           System.out.println(playerHand.size() + computerHand.size());
       }//end while  
-      if(playerHand.isEmpty()){
+      if(playerHand.size() == 0){
     	  gameWinning(ComputerName);
     	  return;
       }//end if
@@ -162,7 +161,7 @@ public class WarCardGame6 extends VectorQueue<String>{
            else{
               //Dequeues the face-down cards for the war
               for(int i = 0; i < 3; i++){
-           	    if(!playerHand.isEmpty()){
+           	    if(playerHand.size() != 0){
            		   warCollection[warCount][i] = playerHand.dequeue();
            	    }//end if
            	    else{
@@ -171,7 +170,7 @@ public class WarCardGame6 extends VectorQueue<String>{
            	    }//end else
               }//end for
               for(int j = 3; j < 6; j++){
-           	   if(!computerHand.isEmpty()){
+           	   if(computerHand.size() != 0){
            		   warCollection[warCount][j] = computerHand.dequeue();
            	   }//end if
            	   else{
@@ -180,7 +179,7 @@ public class WarCardGame6 extends VectorQueue<String>{
            	   }//end else
               }//end for
            }//end else
-           if(!playerHand.isEmpty()&&!computerHand.isEmpty()){
+           if((playerHand.size() != 0) && (computerHand.size() != 0)){
            	//Dequeues the face-up war cards
            	playerCard = (String) playerHand.dequeue();
            	playerSubstring = playerCard.substring(1);
