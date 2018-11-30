@@ -105,21 +105,21 @@ public class WarCardGame6 extends VectorQueue<String>{
           String computerSubstring = computerCard.substring(1);
           int computerCardValue = Integer.parseInt(computerSubstring);
           System.out.println(ComputerName + " played the " + getValue(computerCard, computerCardValue));
-          System.out.println("Player hand: " + playerHand.size());
-          System.out.println("Computer hand: " + computerHand.size());
+
           if(playerCardValue > computerCardValue){
              playerHand.enqueue(playerCard);
              playerHand.enqueue(computerCard);
+             
              System.out.println(PlayerName + ", you win this round!");
              System.out.println();
-             //Thread.sleep(1500);
+             Thread.sleep(1500);
           }//end if
           else if(playerCardValue < computerCardValue){
              computerHand.enqueue(playerCard);
              computerHand.enqueue(computerCard);
              System.out.println(ComputerName + " wins this round.");
              System.out.println();
-             //Thread.sleep(1500);
+             Thread.sleep(1500);
           }//end else if
           
          else{
@@ -128,6 +128,9 @@ public class WarCardGame6 extends VectorQueue<String>{
         		 return;
         	 }//end if
          }//end else
+          System.out.println("Player hand: " + playerHand.size());
+          System.out.println("Computer hand: " + computerHand.size());
+          System.out.println(playerHand.size() + computerHand.size());
       }//end while  
       if(playerHand.isEmpty()){
     	  gameWinning(ComputerName);
