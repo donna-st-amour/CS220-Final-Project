@@ -138,7 +138,104 @@ public class WarCardGame6 extends VectorQueue<String>{
     	  return;
       }//end else
     }//end gameplay method
+   
+//*******************************************WAR************************************************************************
       
+   public static void goToWar(VectorQueue<String> playerHand, VectorQueue<String> computerHand, String playerCard, String computerCard, String warCollection[][], int warCount){
+       int column = 0;
+       String playerSubstring;
+       int playerCardValue;
+       String computerSubstring;
+       int computerCardValue;
+       String tempPlayerCard = playerCard;
+       String tempComputerCard = computerCard;
+       
+       System.out.println(); 
+       System.out.println("Go to WAR!!!");
+           //In case of multiple wars
+           if(warCollection[warCount][column] != null){
+              warCount++;
+           }//end if
+           else{
+              //Dequeues the face-down cards for the war
+              for(int i = 0; i < 3; i++){
+           	    if(!playerHand.isEmpty()){
+           		   warCollection[warCount][i] = playerHand.dequeue();
+           	    }//end if
+           	    else{
+           	    	gameWinning(WarCardGame6.ComputerName);
+           	    	return;
+           	    }//end else
+              }//end for
+              for(int j = 3; j < 6; j++){
+           	   if(!computerHand.isEmpty()){
+           		   warCollection[warCount][j] = computerHand.dequeue();
+           	   }//end if
+           	   else{
+           		   gameWinning(WarCardGame6.PlayerName);
+           		   return;
+           	   }//end else
+              }//end for
+           }//end else
+           if(!playerHand.isEmpty()&&!computerHand.isEmpty()){
+           	//Dequeues the face-up war cards
+           	playerCard = (String) playerHand.dequeue();
+           	playerSubstring = playerCard.substring(1);
+           	playerCardValue = Integer.parseInt(playerSubstring);
+           	System.out.println(PlayerName + ", you have played the " + getValue(playerCard, playerCardValue));
+           	computerCard = (String) computerHand.dequeue();
+           	computerSubstring = computerCard.substring(1);
+           	computerCardValue = Integer.parseInt(computerSubstring);
+           	System.out.println(ComputerName + " played the " + getValue(computerCard, computerCardValue));
+           	//Compare the face-up war cards and enqueue won cards
+           	if(playerCardValue > computerCardValue){
+           		playerHand.enqueue(playerCard);
+           		playerHand.enqueue(computerCard);
+           		playerHand.enqueue(tempPlayerCard);
+           		playerHand.enqueue(tempComputerCard);
+           		System.out.println(PlayerName + ", you win the war!");
+           		System.out.println();
+           		for(int i = 0;i < warCount + 1;i++){
+           			for(int j = 0;j < 6;j++){
+           				playerHand.enqueue(warCollection[i][j]);
+           				warCollection[i][j] = null;
+           			}//end inner for
+           		}//end outer for
+           	}//end if
+           	else if(playerCardValue < computerCardValue){
+           		computerHand.enqueue(playerCard);
+           		computerHand.enqueue(computerCard);
+           		computerHand.enqueue(tempPlayerCard);
+           		computerHand.enqueue(tempComputerCard);
+           		System.out.println(ComputerName + " wins the war.");
+           		System.out.println();
+           		for(int i = 0;i < warCount + 1;i++){
+           			for(int j = 0;j < 6;j++){
+           				playerHand.enqueue(warCollection[i][j]);
+           				warCollection[i][j] = null;
+           			}//end inner for
+           		}//end outer for
+           	}//end else if
+           	//To handle multiple wars
+           	else{
+           		goToWar(playerHand, computerHand, playerCard, computerCard, warCollection, warCount);           
+           	}//end else
+           }//end if
+           else if(playerHand.isEmpty()){
+           	gameWinning(WarCardGame6.ComputerName);
+           	return;
+           }//end else if
+           else{
+           	gameWinning(WarCardGame6.PlayerName);
+           	return;
+           }//end else
+       }//end goToWar method 
+
+       public static void gameWinning(String name){
+       	System.out.println(name + " you have won the game!");
+        }//end gameWinning method
+
+   
    public static String getValue(String cardName, int cardValue){
 	   	String cardTitle;
 	   	switch(cardName.charAt(0)){
@@ -198,100 +295,4 @@ public class WarCardGame6 extends VectorQueue<String>{
 	   	return cardTitle;
    }//end getValue method 
     	   
-         public static void goToWar(VectorQueue<String> playerHand, VectorQueue<String> computerHand, String playerCard, String computerCard, String warCollection[][], int warCount){
-            int column = 0;
-            String playerSubstring;
-            int playerCardValue;
-            String computerSubstring;
-            int computerCardValue;
-            String tempPlayerCard = playerCard;
-            String tempComputerCard = computerCard;
-            
-            System.out.println(); 
-            System.out.println("Go to WAR!!!");
-                //In case of multiple wars
-	            if(warCollection[warCount][column] != null){
-	               warCount++;
-	            }//end if
-	            else{
-	               //Dequeues the face-down cards for the war
-	               for(int i = 0; i < 3; i++){
-	            	    if(!playerHand.isEmpty()){
-	            		   warCollection[warCount][i] = playerHand.dequeue();
-	            	    }//end if
-	            	    else{
-	            	    	gameWinning(WarCardGame6.ComputerName);
-	            	    	return;
-	            	    }//end else
-	               }//end for
-	               for(int j = 3; j < 6; j++){
-	            	   if(!computerHand.isEmpty()){
-	            		   warCollection[warCount][j] = computerHand.dequeue();
-	            	   }//end if
-	            	   else{
-	            		   gameWinning(WarCardGame6.PlayerName);
-	            		   return;
-	            	   }//end else
-	               }//end for
-	            }//end else
-	            if(!playerHand.isEmpty()&&!computerHand.isEmpty()){
-	            	//Dequeues the face-up war cards
-	            	playerCard = (String) playerHand.dequeue();
-	            	playerSubstring = playerCard.substring(1);
-	            	playerCardValue = Integer.parseInt(playerSubstring);
-	            	System.out.println(PlayerName + ", you have played the " + getValue(playerCard, playerCardValue));
-	            	computerCard = (String) computerHand.dequeue();
-	            	computerSubstring = computerCard.substring(1);
-	            	computerCardValue = Integer.parseInt(computerSubstring);
-	            	System.out.println(ComputerName + " played the " + getValue(computerCard, computerCardValue));
-	            	//Compare the face-up war cards and enqueue won cards
-	            	if(playerCardValue > computerCardValue){
-	            		playerHand.enqueue(playerCard);
-	            		playerHand.enqueue(computerCard);
-	            		playerHand.enqueue(tempPlayerCard);
-	            		playerHand.enqueue(tempComputerCard);
-	            		System.out.println(PlayerName + ", you win the war!");
-	            		System.out.println();
-	            		for(int i = 0;i < warCount + 1;i++){
-	            			for(int j = 0;j < 6;j++){
-	            				playerHand.enqueue(warCollection[i][j]);
-	            				warCollection[i][j] = null;
-	            			}//end inner for
-	            		}//end outer for
-	            	}//end if
-	            	else if(playerCardValue < computerCardValue){
-	            		computerHand.enqueue(playerCard);
-	            		computerHand.enqueue(computerCard);
-	            		computerHand.enqueue(tempPlayerCard);
-	            		computerHand.enqueue(tempComputerCard);
-	            		System.out.println(ComputerName + " wins the war.");
-	            		System.out.println();
-	            		for(int i = 0;i < warCount + 1;i++){
-	            			for(int j = 0;j < 6;j++){
-	            				playerHand.enqueue(warCollection[i][j]);
-	            				warCollection[i][j] = null;
-	            			}//end inner for
-	            		}//end outer for
-	            	}//end else if
-	            	//To handle multiple wars
-	            	else{
-	            		goToWar(playerHand, computerHand, playerCard, computerCard, warCollection, warCount);           
-	            	}//end else
-	            }//end if
-	            else if(playerHand.isEmpty()){
-	            	gameWinning(WarCardGame6.ComputerName);
-	            	return;
-	            }//end else if
-	            else{
-	            	gameWinning(WarCardGame6.PlayerName);
-	            	return;
-	            }//end else
-            }//end goToWar method 
-
-            public static void gameWinning(String name){
-            	System.out.println(name + " you have won the game!");
-             }//end gameWinning method
-
-
-
-         } //end class
+} //end class
