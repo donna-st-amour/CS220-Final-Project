@@ -47,6 +47,10 @@
 	   public void clear(){
 	      queue.clear();
 	   }//end clear method
+	   
+	   public int size(){
+		   return queue.size();
+	   }//end size method
 
 	   
 	}//end interface
